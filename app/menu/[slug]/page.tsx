@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import { notFound } from 'next/navigation'
+import MenuOrderForm from './MenuOrderForm'
 
 export default async function MenuPage({
   params,
@@ -17,25 +18,17 @@ export default async function MenuPage({
     notFound()
   }
 
+  const menuItems = business.menuItems.map((item) => ({
+    id: item.id,
+    name: item.name,
+    price: item.price.toNumber(),
+    stock: item.stock,
+  }))
+
   return (
     <main style={{ padding: '2rem', maxWidth: '600px', margin: '0 auto' }}>
       <h1>{business.name}</h1>
-      <ul style={{ listStyle: 'none', padding: 0 }}>
-        {business.menuItems.map((item) => (
-          <li
-            key={item.id}
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              padding: '0.75rem 0',
-              borderBottom: '1px solid #ddd',
-            }}
-          >
-            <span>{item.name}</span>
-            <span>£{item.price.toString()}</span>
-          </li>
-        ))}
-      </ul>
+      <MenuOrderForm slug={slug} menuItems={menuItems} />
     </main>
   )
 }
