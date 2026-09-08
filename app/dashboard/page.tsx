@@ -1,4 +1,5 @@
 import { prisma } from '@/lib/prisma'
+import QRCode from 'qrcode'
 
 export default async function DashboardPage() {
   const startOfToday = new Date()
@@ -35,6 +36,9 @@ export default async function DashboardPage() {
     where: { id: { in: topItemIds } },
   })
 
+  const menuUrl = 'http://localhost:3000/menu/flame-fusion'
+  const qrDataUrl = await QRCode.toDataURL(menuUrl)
+
   const topItems = topItemIds.map((id) => {
     const menuItem = topMenuItems.find((m) => m.id === id)
     return {
@@ -56,6 +60,12 @@ export default async function DashboardPage() {
           <p style={{ color: '#666', fontSize: '0.9rem' }}>Orders Today</p>
           <p style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{orders.length}</p>
         </div>
+      </div>
+
+      <div style={{ marginBottom: '2rem' }}>
+        <h2>Your Menu QR Code</h2>
+        <img src={qrDataUrl} alt="QR code linking to your menu" width={200} height={200} />
+        <p style={{ color: '#666', fontSize: '0.9rem' }}>{menuUrl}</p>
       </div>
 
       <h2>Top Items Today</h2>
