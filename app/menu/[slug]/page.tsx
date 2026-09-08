@@ -21,14 +21,22 @@ export default async function MenuPage({
   const menuItems = business.menuItems.map((item) => ({
     id: item.id,
     name: item.name,
+    description: item.description,
     price: item.price.toNumber(),
     stock: item.stock,
+    available: item.available,
   }))
 
   return (
-    <main style={{ padding: '2rem', maxWidth: '600px', margin: '0 auto' }}>
-      <h1>{business.name}</h1>
-      <MenuOrderForm slug={slug} menuItems={menuItems} />
+    <main className="min-h-screen bg-paper px-6 py-12">
+      <div className="mx-auto max-w-lg">
+        <header className="mb-10 text-center">
+          <p className="font-mono text-xs text-ink/50">Valencia, Spain</p>
+          <h1 className="mt-2 font-serif text-4xl text-ink">{business.name}</h1>
+        </header>
+
+        <MenuOrderForm slug={slug} menuItems={menuItems} />
+      </div>
     </main>
   )
 }

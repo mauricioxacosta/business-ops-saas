@@ -5,8 +5,10 @@ import { useState } from 'react'
 type MenuItem = {
   id: string
   name: string
+  description: string | null
   price: number
   stock: number
+  available: boolean
 }
 
 export default function MenuOrderForm({
@@ -47,7 +49,7 @@ export default function MenuOrderForm({
 
     if (res.ok) {
       setStatus('success')
-      setMessage(`Order placed! Order ID: ${data.orderId}`)
+      setMessage(`Order placed — order #${data.orderId.slice(-6)}`)
       setQuantities({})
     } else {
       setStatus('error')
@@ -57,36 +59,50 @@ export default function MenuOrderForm({
 
   return (
     <div>
-      <ul style={{ listStyle: 'none', padding: 0 }}>
+      <ul className="divide-y divide-line">
         {menuItems.map((item) => (
-          <li
-            key={item.id}
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              padding: '0.75rem 0',
-              borderBottom: '1px solid #ddd',
-            }}
-          >
-            <span>{item.name} — £{item.price.toFixed(2)}</span>
-            <input
-              type="number"
-              min={0}
-              max={item.stock}
-              value={quantities[item.id] || 0}
-              onChange={(e) => updateQuantity(item.id, Number(e.target.value))}
-              style={{ width: '60px' }}
-            />
+          <li key={item.id} className="flex items-start justify-between gap-4 py-5">
+            <div className="min-w-0">
+              <p className="font-medium text-ink">{item.name}</p>
+              {item.description && (
+                <p className="mt-1 text-sm text-ink/60">{item.description}</p>
+              )}
+              {!item.available && (
+                <p className="mt-1 text-sm text-valencia">Currently unavailable</p>
+              )}
+            </div>
+
+            <div className="flex shrink-0 items-center gap-3">
+              <span className="font-mono text-sm tabular-nums text-ink/80">
+                £{item.price.toFixed(2)}
+              </span>
+              <input
+                type="number"
+                min={0}
+                max={item.stock}
+                disabled={!item.available}
+                value={quantities[item.id] || 0}
+                onChange={(e) => updateQuantity(item.id, Number(e.target.value))}
+                className="w-14 rounded-md border border-line bg-paper px-2 py-1 text-center font-mono text-sm text-ink focus:border-valencia focus:outline-none disabled:opacity-40"
+              />
+            </div>
           </li>
         ))}
       </ul>
 
-      <button onClick={handleSubmit} disabled={status === 'submitting'}>
-        {status === 'submitting' ? 'Placing order...' : 'Place order'}
+      <button
+        onClick={handleSubmit}
+        disabled={status === 'submitting'}
+        className="mt-6 w-full rounded-md bg-valencia py-3 font-medium text-cream transition hover:bg-valencia/90 disabled:opacity-50"
+      >
+        {status === 'submitting' ? 'Placing order…' : 'Place order'}
       </button>
 
-      {message && <p>{message}</p>}
+      {message && (
+        <p className={`mt-4 text-sm ${status === 'success' ? 'text-olive' : 'text-valencia'}`}>
+          {message}
+        </p>
+      )}
     </div>
   )
 }

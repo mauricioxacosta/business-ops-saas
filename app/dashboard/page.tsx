@@ -37,7 +37,10 @@ export default async function DashboardPage() {
   })
 
   const menuUrl = 'http://localhost:3000/menu/flame-fusion'
-  const qrDataUrl = await QRCode.toDataURL(menuUrl)
+  const qrDataUrl = await QRCode.toDataURL(menuUrl, {
+    margin: 1,
+    color: { dark: '#2B2420', light: '#FBF6EE' },
+  })
 
   const topItems = topItemIds.map((id) => {
     const menuItem = topMenuItems.find((m) => m.id === id)
@@ -48,35 +51,47 @@ export default async function DashboardPage() {
   })
 
   return (
-    <main style={{ padding: '2rem', maxWidth: '700px', margin: '0 auto' }}>
-      <h1>Dashboard</h1>
+    <main className="min-h-screen bg-charcoal px-6 py-12">
+      <div className="mx-auto max-w-3xl">
+        <h1 className="font-serif text-3xl text-cream">Dashboard</h1>
 
-      <div style={{ display: 'flex', gap: '1rem', marginBottom: '2rem' }}>
-        <div style={{ border: '1px solid #ddd', borderRadius: '8px', padding: '1rem', flex: 1 }}>
-          <p style={{ color: '#666', fontSize: '0.9rem' }}>Today&apos;s Revenue</p>
-          <p style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>£{revenue.toFixed(2)}</p>
+        <div className="mt-8 grid grid-cols-2 gap-5">
+          <div className="rounded-lg bg-charcoal-card p-6">
+            <p className="text-sm text-cream/50">Today&apos;s revenue</p>
+            <p className="mt-2 font-mono text-3xl text-cream">£{revenue.toFixed(2)}</p>
+          </div>
+          <div className="rounded-lg bg-charcoal-card p-6">
+            <p className="text-sm text-cream/50">Orders today</p>
+            <p className="mt-2 font-mono text-3xl text-cream">{orders.length}</p>
+          </div>
         </div>
-        <div style={{ border: '1px solid #ddd', borderRadius: '8px', padding: '1rem', flex: 1 }}>
-          <p style={{ color: '#666', fontSize: '0.9rem' }}>Orders Today</p>
-          <p style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>{orders.length}</p>
+
+        <div className="mt-8 grid gap-5 sm:grid-cols-2">
+          <div className="rounded-lg bg-charcoal-card p-6">
+            <h2 className="font-serif text-lg text-cream">Menu QR code</h2>
+            <div className="mt-4 inline-block rounded-md bg-paper p-3">
+              <img src={qrDataUrl} alt="QR code linking to your menu" width={160} height={160} />
+            </div>
+            <p className="mt-3 font-mono text-xs text-cream/40">{menuUrl}</p>
+          </div>
+
+          <div className="rounded-lg bg-charcoal-card p-6">
+            <h2 className="font-serif text-lg text-cream">Top items today</h2>
+            {topItems.length === 0 ? (
+              <p className="mt-4 text-sm text-cream/50">No orders yet today.</p>
+            ) : (
+              <ul className="mt-4 space-y-2">
+                {topItems.map((item) => (
+                  <li key={item.name} className="flex justify-between text-sm text-cream/90">
+                    <span>{item.name}</span>
+                    <span className="font-mono text-cream/60">{item.quantity} sold</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       </div>
-
-      <div style={{ marginBottom: '2rem' }}>
-        <h2>Your Menu QR Code</h2>
-        <img src={qrDataUrl} alt="QR code linking to your menu" width={200} height={200} />
-        <p style={{ color: '#666', fontSize: '0.9rem' }}>{menuUrl}</p>
-      </div>
-
-      <h2>Top Items Today</h2>
-      {topItems.length === 0 && <p>No orders yet today.</p>}
-      <ul style={{ listStyle: 'none', padding: 0 }}>
-        {topItems.map((item) => (
-          <li key={item.name} style={{ padding: '0.5rem 0', borderBottom: '1px solid #ddd' }}>
-            {item.name} — {item.quantity} sold
-          </li>
-        ))}
-      </ul>
     </main>
   )
 }
