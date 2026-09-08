@@ -1,5 +1,6 @@
 import { prisma } from '@/lib/prisma'
 import AddMenuItemForm from './AddMenuItemForm'
+import MenuItemRow from './MenuItemRow'
 
 const BUSINESS_SLUG = 'flame-fusion'
 
@@ -20,18 +21,17 @@ export default async function OwnerMenuPage() {
       <h2>Current Items</h2>
       <ul style={{ listStyle: 'none', padding: 0 }}>
         {business.menuItems.map((item) => (
-          <li
+          <MenuItemRow
             key={item.id}
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              padding: '0.5rem 0',
-              borderBottom: '1px solid #ddd',
+            item={{
+              id: item.id,
+              name: item.name,
+              description: item.description,
+              price: item.price.toString(),
+              stock: item.stock,
+              available: item.available,
             }}
-          >
-            <span>{item.name} — £{item.price.toString()}</span>
-            <span>Stock: {item.stock}</span>
-          </li>
+          />
         ))}
       </ul>
 
