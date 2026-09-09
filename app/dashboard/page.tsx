@@ -37,7 +37,8 @@ export default async function DashboardPage() {
     where: { id: { in: topItemIds } },
   })
 
-  const menuUrl = 'http://localhost:3000/menu/flame-fusion'
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
+  const menuUrl = `${siteUrl}/menu/flame-fusion`
   const qrDataUrl = await QRCode.toDataURL(menuUrl, {
     margin: 1,
     color: { dark: '#2B2420', light: '#FBF6EE' },
