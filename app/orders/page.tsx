@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic'
 import { prisma } from '@/lib/prisma'
 import OrderActions from './OrderActions'
+import LogoutButton from '../components/LogoutButton'
 
 export default async function OrdersPage() {
   const orders = await prisma.order.findMany({
@@ -15,7 +16,10 @@ export default async function OrdersPage() {
   return (
     <main className="min-h-screen bg-charcoal px-6 py-12">
       <div className="mx-auto max-w-3xl">
-        <h1 className="font-serif text-3xl text-cream">Orders</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="font-serif text-3xl text-cream">Orders</h1>
+          <LogoutButton />
+        </div>
 
         {orders.length === 0 && (
           <p className="mt-6 text-cream/60">No orders yet.</p>

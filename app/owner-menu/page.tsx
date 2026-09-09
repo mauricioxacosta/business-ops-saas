@@ -1,6 +1,7 @@
 import { prisma } from '@/lib/prisma'
 import AddMenuItemForm from './AddMenuItemForm'
 import MenuItemRow from './MenuItemRow'
+import LogoutButton from '../components/LogoutButton'
 
 const BUSINESS_SLUG = 'flame-fusion'
 
@@ -17,7 +18,10 @@ export default async function OwnerMenuPage() {
   return (
     <main className="min-h-screen bg-charcoal px-6 py-12">
       <div className="mx-auto max-w-2xl">
-        <h1 className="font-serif text-3xl text-cream">Manage menu — {business.name}</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="font-serif text-3xl text-cream">Manage menu — {business.name}</h1>
+          <LogoutButton />
+        </div>
 
         <h2 className="mt-10 text-sm font-medium text-cream/50">Current items</h2>
         <ul className="mt-3 divide-y divide-cream/10 rounded-lg bg-charcoal-card px-5">

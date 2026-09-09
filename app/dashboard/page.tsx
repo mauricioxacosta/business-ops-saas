@@ -1,6 +1,7 @@
 export const dynamic = 'force-dynamic'
 import { prisma } from '@/lib/prisma'
 import QRCode from 'qrcode'
+import LogoutButton from '../components/LogoutButton'
 
 export default async function DashboardPage() {
   const startOfToday = new Date()
@@ -55,7 +56,10 @@ export default async function DashboardPage() {
   return (
     <main className="min-h-screen bg-charcoal px-6 py-12">
       <div className="mx-auto max-w-3xl">
-        <h1 className="font-serif text-3xl text-cream">Dashboard</h1>
+        <div className="flex items-center justify-between">
+          <h1 className="font-serif text-3xl text-cream">Dashboard</h1>
+          <LogoutButton />
+        </div>
 
         <div className="mt-8 grid grid-cols-2 gap-5">
           <div className="rounded-lg bg-charcoal-card p-6">
