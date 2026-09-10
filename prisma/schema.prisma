@@ -17,15 +17,17 @@ model Business {
 }
 
 model MenuItem {
-  id          String   @id @default(cuid())
-  businessId  String
-  business    Business @relation(fields: [businessId], references: [id])
-  name        String
-  description String?
-  price       Decimal
-  stock       Int      @default(0)
-  available   Boolean  @default(true)
-  orderItems  OrderItem[]
+  id           String   @id @default(cuid())
+  businessId   String
+  business     Business @relation(fields: [businessId], references: [id])
+  name         String
+  description  String?
+  price        Decimal
+  cost         Decimal?
+  stock        Int      @default(0)
+  reorderLevel Int      @default(5)
+  available    Boolean  @default(true)
+  orderItems   OrderItem[]
 }
 
 model Order {

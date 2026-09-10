@@ -4,6 +4,7 @@
   --font-sans: var(--font-plex-sans);
   --font-serif: var(--font-fraunces);
   --font-mono: var(--font-plex-mono);
+  --font-admin: var(--font-inter);
 
   --color-paper: #FBF6EE;
   --color-ink: #2B2420;
@@ -14,6 +15,13 @@
   --color-charcoal: #1C1A17;
   --color-charcoal-card: #262320;
   --color-cream: #F2EDE4;
+
+  --color-admin-bg: #F5F6F8;
+  --color-admin-card: #FFFFFF;
+  --color-admin-ink: #1E1E1E;
+  --color-admin-accent: #FF5722;
+  --color-admin-alert: #E53935;
+  --color-admin-success: #4CAF50;
 }
 
 body {
