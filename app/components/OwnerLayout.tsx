@@ -13,6 +13,11 @@ const NAV_ITEMS = [
     icon: 'M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2',
   },
   {
+    href: '/owner-menu',
+    label: 'Menu',
+    icon: 'M4 6h16M4 12h16M4 18h7',
+  },
+  {
     href: '/inventory',
     label: 'Inventory',
     icon: 'M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4',
@@ -29,7 +34,7 @@ export default function OwnerLayout({
   active,
 }: {
   children: React.ReactNode
-  active: 'dashboard' | 'orders' | 'inventory' | 'reports'
+  active: 'dashboard' | 'orders' | 'inventory' | 'reports' | 'menu'
 }) {
   return (
     <div className="flex min-h-screen bg-admin-bg font-admin">
@@ -37,7 +42,8 @@ export default function OwnerLayout({
         <p className="px-2 font-semibold text-admin-ink">Flame Fusion</p>
         <nav className="mt-8 flex flex-col gap-1">
           {NAV_ITEMS.map((item) => {
-            const isActive = item.href === `/${active}`
+            const isActive =
+              active === 'menu' ? item.href === '/owner-menu' : item.href === `/${active}`
             return (
               <Link
                 key={item.href}

@@ -59,7 +59,7 @@ export default function MenuItemRow({ item }: { item: MenuItem }) {
   }
 
   const inputClass =
-    'w-full rounded-md border border-cream/15 bg-charcoal px-3 py-1.5 text-sm text-cream focus:border-valencia focus:outline-none'
+    'w-full rounded-lg border border-black/10 bg-admin-bg px-3 py-1.5 text-sm text-admin-ink focus:border-admin-accent focus:outline-none'
 
   if (editing) {
     return (
@@ -79,7 +79,7 @@ export default function MenuItemRow({ item }: { item: MenuItem }) {
             onChange={(e) => setStock(e.target.value)}
             className={inputClass}
           />
-          <label className="flex items-center gap-2 text-sm text-cream/70">
+          <label className="flex items-center gap-2 text-sm text-admin-ink/70">
             <input
               type="checkbox"
               checked={available}
@@ -90,18 +90,18 @@ export default function MenuItemRow({ item }: { item: MenuItem }) {
           <div className="flex gap-2">
             <button
               onClick={handleSave}
-              className="rounded-md bg-olive px-3 py-1.5 text-xs font-medium text-cream hover:bg-olive/90"
+              className="rounded-lg bg-admin-success px-3 py-1.5 text-xs font-medium text-white hover:bg-admin-success/90"
             >
               Save
             </button>
             <button
               onClick={() => setEditing(false)}
-              className="rounded-md border border-cream/20 px-3 py-1.5 text-xs font-medium text-cream/70 hover:bg-cream/5"
+              className="rounded-lg border border-black/10 px-3 py-1.5 text-xs font-medium text-admin-ink/70 hover:bg-black/5"
             >
               Cancel
             </button>
           </div>
-          {message && <p className="text-xs text-valencia">{message}</p>}
+          {message && <p className="text-xs text-admin-alert">{message}</p>}
         </div>
       </li>
     )
@@ -110,30 +110,30 @@ export default function MenuItemRow({ item }: { item: MenuItem }) {
   return (
     <li className="flex items-center justify-between gap-4 py-4">
       <div>
-        <p className="text-sm text-cream">
+        <p className="text-sm text-admin-ink">
           {item.name}{' '}
-          <span className="font-mono text-cream/60">£{Number(item.price).toFixed(2)}</span>
+          <span className="text-admin-ink/60">£{Number(item.price).toFixed(2)}</span>
         </p>
-        <p className="mt-0.5 text-xs text-cream/40">Stock: {item.stock}</p>
+        <p className="mt-0.5 text-xs text-admin-ink/40">Stock: {item.stock}</p>
         {!item.available && (
-          <p className="mt-0.5 text-xs text-valencia">Unavailable</p>
+          <p className="mt-0.5 text-xs text-admin-alert">Unavailable</p>
         )}
       </div>
       <div className="flex shrink-0 gap-2">
         <button
           onClick={() => setEditing(true)}
-          className="rounded-md border border-cream/20 px-3 py-1.5 text-xs font-medium text-cream/70 hover:bg-cream/5"
+          className="rounded-lg border border-black/10 px-3 py-1.5 text-xs font-medium text-admin-ink/70 hover:bg-black/5"
         >
           Edit
         </button>
         <button
           onClick={handleDelete}
-          className="rounded-md border border-valencia/40 px-3 py-1.5 text-xs font-medium text-valencia hover:bg-valencia/10"
+          className="rounded-lg border border-admin-alert/30 px-3 py-1.5 text-xs font-medium text-admin-alert hover:bg-admin-alert/5"
         >
           Delete
         </button>
       </div>
-      {message && <p className="text-xs text-valencia">{message}</p>}
+      {message && <p className="text-xs text-admin-alert">{message}</p>}
     </li>
   )
 }

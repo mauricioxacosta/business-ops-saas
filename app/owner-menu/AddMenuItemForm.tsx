@@ -44,7 +44,7 @@ export default function AddMenuItemForm({ slug }: { slug: string }) {
   }
 
   const inputClass =
-    'w-full rounded-md border border-cream/15 bg-charcoal px-3 py-2 text-sm text-cream placeholder:text-cream/30 focus:border-valencia focus:outline-none'
+    'w-full rounded-lg border border-black/10 bg-admin-bg px-3 py-2 text-sm text-admin-ink placeholder:text-admin-ink/30 focus:border-admin-accent focus:outline-none'
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-3">
@@ -84,11 +84,11 @@ export default function AddMenuItemForm({ slug }: { slug: string }) {
       <button
         type="submit"
         disabled={status === 'submitting'}
-        className="rounded-md bg-valencia py-2.5 text-sm font-medium text-cream transition hover:bg-valencia/90 disabled:opacity-50"
+        className="rounded-lg bg-admin-accent py-2.5 text-sm font-medium text-white transition hover:bg-admin-accent/90 disabled:opacity-50"
       >
         {status === 'submitting' ? 'Adding…' : 'Add item'}
       </button>
-      {message && <p className="text-sm text-valencia">{message}</p>}
+      {message && <p className="text-sm text-admin-alert">{message}</p>}
     </form>
   )
 }

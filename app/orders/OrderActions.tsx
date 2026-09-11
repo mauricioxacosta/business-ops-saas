@@ -32,7 +32,7 @@ export default function OrderActions({
     <button
       onClick={markCompleted}
       disabled={loading}
-      className="rounded-md bg-olive px-3 py-1.5 text-xs font-medium text-cream transition hover:bg-olive/90 disabled:opacity-50"
+      className="rounded-lg bg-admin-accent px-3 py-1.5 text-xs font-medium text-white transition hover:bg-admin-accent/90 disabled:opacity-50"
     >
       {loading ? 'Updating…' : 'Mark completed'}
     </button>
