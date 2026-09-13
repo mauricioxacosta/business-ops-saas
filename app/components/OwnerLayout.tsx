@@ -29,6 +29,13 @@ const NAV_ITEMS = [
   },
 ]
 
+function isNavActive(
+  href: string,
+  active: 'dashboard' | 'orders' | 'inventory' | 'reports' | 'menu'
+) {
+  return active === 'menu' ? href === '/owner-menu' : href === `/${active}`
+}
+
 export default function OwnerLayout({
   children,
   active,
@@ -37,13 +44,12 @@ export default function OwnerLayout({
   active: 'dashboard' | 'orders' | 'inventory' | 'reports' | 'menu'
 }) {
   return (
-    <div className="flex min-h-screen bg-admin-bg font-admin">
-      <aside className="fixed inset-y-0 left-0 w-56 border-r border-black/5 bg-white px-4 py-6">
+    <div className="min-h-screen bg-admin-bg font-admin md:flex">
+      <aside className="hidden w-56 shrink-0 border-r border-black/5 bg-white px-4 py-6 md:block">
         <p className="px-2 font-semibold text-admin-ink">Flame Fusion</p>
         <nav className="mt-8 flex flex-col gap-1">
           {NAV_ITEMS.map((item) => {
-            const isActive =
-              active === 'menu' ? item.href === '/owner-menu' : item.href === `/${active}`
+            const isActive = isNavActive(item.href, active)
             return (
               <Link
                 key={item.href}
@@ -54,7 +60,7 @@ export default function OwnerLayout({
                     : 'text-admin-ink/60 hover:bg-black/5'
                 }`}
               >
-                <svg className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg className="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d={item.icon} />
                 </svg>
                 {item.label}
@@ -64,13 +70,32 @@ export default function OwnerLayout({
         </nav>
       </aside>
 
-      <div className="ml-56 flex-1">
-        <header className="flex items-center justify-between border-b border-black/5 bg-white px-8 py-4">
-          <h1 className="font-semibold text-admin-ink">Flame Fusion Admin</h1>
+      <div className="flex-1">
+        <header className="flex items-center justify-between border-b border-black/5 bg-white px-4 py-4 sm:px-8">
+          <h1 className="text-sm font-semibold text-admin-ink sm:text-base">Flame Fusion Admin</h1>
           <AdminLogoutButton />
         </header>
 
-        <main className="p-8">{children}</main>
+        <nav className="flex gap-1 overflow-x-auto border-b border-black/5 bg-white px-4 py-2 md:hidden">
+          {NAV_ITEMS.map((item) => {
+            const isActive = isNavActive(item.href, active)
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className={`shrink-0 rounded-lg px-3 py-1.5 text-xs font-medium transition ${
+                  isActive
+                    ? 'bg-admin-accent/10 text-admin-accent'
+                    : 'text-admin-ink/60 hover:bg-black/5'
+                }`}
+              >
+                {item.label}
+              </Link>
+            )
+          })}
+        </nav>
+
+        <main className="p-4 sm:p-8">{children}</main>
       </div>
     </div>
   )

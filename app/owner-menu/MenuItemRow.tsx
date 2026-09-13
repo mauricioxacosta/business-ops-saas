@@ -108,7 +108,7 @@ export default function MenuItemRow({ item }: { item: MenuItem }) {
   }
 
   return (
-    <li className="flex items-center justify-between gap-4 py-4">
+        <li className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
       <div>
         <p className="text-sm text-admin-ink">
           {item.name}{' '}

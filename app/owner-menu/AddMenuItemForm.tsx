@@ -63,14 +63,14 @@ export default function AddMenuItemForm({ slug }: { slug: string }) {
         onChange={(e) => setDescription(e.target.value)}
         className={inputClass}
       />
-      <div className="flex gap-3">
+      <div className="flex flex-wrap gap-3">
         <input
           type="number"
           step="0.01"
           placeholder="Price"
           value={price}
           onChange={(e) => setPrice(e.target.value)}
-          className={inputClass}
+          className={`${inputClass} min-w-[120px] flex-1`}
           required
         />
         <input
@@ -78,7 +78,7 @@ export default function AddMenuItemForm({ slug }: { slug: string }) {
           placeholder="Stock"
           value={stock}
           onChange={(e) => setStock(e.target.value)}
-          className={inputClass}
+          className={`${inputClass} min-w-[120px] flex-1`}
         />
       </div>
       <button

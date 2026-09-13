@@ -77,7 +77,7 @@ export default async function DashboardPage() {
 
   return (
     <OwnerLayout active="dashboard">
-      <div className="grid grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
         <div className="rounded-2xl bg-white p-6 shadow-sm">
           <p className="text-sm text-admin-ink/50">Today&apos;s revenue</p>
           <p className="mt-2 text-3xl font-semibold text-admin-ink">£{revenue.toFixed(2)}</p>

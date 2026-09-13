@@ -100,7 +100,7 @@ export default async function ReportsPage({
         </button>
       </form>
 
-      <div className="mt-6 grid grid-cols-3 gap-6">
+      <div className="mt-6 grid grid-cols-1 gap-6 sm:grid-cols-3">
         <div className="rounded-2xl bg-white p-6 shadow-sm">
           <p className="text-sm text-admin-ink/50">Total revenue</p>
           <p className="mt-2 text-3xl font-semibold text-admin-ink">£{totalRevenue.toFixed(2)}</p>
