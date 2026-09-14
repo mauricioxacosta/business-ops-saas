@@ -30,6 +30,14 @@ export async function POST(request: Request) {
       })
 
       for (const item of items) {
+        if (
+          typeof item.quantity !== 'number' ||
+          item.quantity <= 0 ||
+          !Number.isInteger(item.quantity)
+        ) {
+          throw new Error('Invalid quantity')
+        }
+
         const menuItem = await tx.menuItem.findUnique({
           where: { id: item.menuItemId },
         })

@@ -9,6 +9,14 @@ export async function PATCH(
   const body = await request.json()
   const { name, description, price, stock, available } = body
 
+  if (price !== undefined && (typeof price !== 'number' || price <= 0)) {
+    return NextResponse.json({ error: 'Price must be a positive number' }, { status: 400 })
+  }
+
+  if (stock !== undefined && (typeof stock !== 'number' || stock < 0 || !Number.isInteger(stock))) {
+    return NextResponse.json({ error: 'Stock must be a non-negative whole number' }, { status: 400 })
+  }
+
   try {
     const menuItem = await prisma.menuItem.update({
       where: { id },
