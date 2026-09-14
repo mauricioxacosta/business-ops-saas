@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-const PROTECTED_PAGES = ['/orders', '/dashboard', '/owner-menu']
+const PROTECTED_PAGES = ['/orders', '/dashboard', '/owner-menu', '/inventory', '/reports']
 
 export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
@@ -10,7 +10,8 @@ export function middleware(request: NextRequest) {
   const isProtectedPage = PROTECTED_PAGES.some((path) => pathname.startsWith(path))
   const isProtectedApi =
     pathname.startsWith('/api/menu-items') ||
-    pathname.startsWith('/api/orders/')
+    pathname.startsWith('/api/orders/') ||
+    pathname.startsWith('/api/reports')
 
   if (isProtectedPage && !isAuthenticated) {
     const loginUrl = new URL('/owner-login', request.url)
@@ -29,7 +30,10 @@ export const config = {
     '/orders/:path*',
     '/dashboard/:path*',
     '/owner-menu/:path*',
+    '/inventory/:path*',
+    '/reports/:path*',
     '/api/menu-items/:path*',
     '/api/orders/:path*',
+    '/api/reports/:path*',
   ],
 }
