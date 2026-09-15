@@ -35,7 +35,7 @@ export default async function OrdersPage() {
                   #{order.id.slice(-6)}
                 </span>
                 <span
-                  className={`rounded-full px-2 py-0.5 text-xs font-medium ${
+                  className={`rounded-full px-2 py-0.5 text-xs font-medium transition-colors duration-300 ${
                     order.status === 'completed'
                       ? 'bg-admin-success/10 text-admin-success'
                       : 'bg-admin-accent/10 text-admin-accent'

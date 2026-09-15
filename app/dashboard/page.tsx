@@ -80,15 +80,15 @@ export default async function DashboardPage() {
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-3">
         <div className="rounded-2xl bg-white p-6 shadow-sm">
           <p className="text-sm text-admin-ink/50">Today&apos;s revenue</p>
-          <p className="mt-2 text-3xl font-semibold text-admin-ink">£{revenue.toFixed(2)}</p>
+          <p className="mt-2 text-4xl font-bold tracking-tight tabular-nums text-admin-ink">£{revenue.toFixed(2)}</p>
         </div>
         <div className="rounded-2xl bg-white p-6 shadow-sm">
           <p className="text-sm text-admin-ink/50">Orders today</p>
-          <p className="mt-2 text-3xl font-semibold text-admin-ink">{orders.length}</p>
+          <p className="mt-2 text-4xl font-bold tracking-tight tabular-nums text-admin-ink">{orders.length}</p>
         </div>
         <div className="rounded-2xl bg-white p-6 shadow-sm">
           <p className="text-sm text-admin-ink/50">Avg order value</p>
-          <p className="mt-2 text-3xl font-semibold text-admin-ink">£{avgOrderValue.toFixed(2)}</p>
+          <p className="mt-2 text-4xl font-bold tracking-tight tabular-nums text-admin-ink">£{avgOrderValue.toFixed(2)}</p>
         </div>
       </div>
 

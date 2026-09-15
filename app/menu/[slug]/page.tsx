@@ -30,9 +30,9 @@ export default async function MenuPage({
   return (
     <main className="min-h-screen bg-paper px-6 py-12">
       <div className="mx-auto max-w-lg">
-        <header className="mb-10 text-center">
+        <header className="paper-grain mb-10 border-b border-line pb-8 text-center">
           <p className="font-mono text-xs text-ink/50">Valencia, Spain</p>
-          <h1 className="mt-2 font-serif text-4xl text-ink">{business.name}</h1>
+          <h1 className="mt-2 font-serif text-5xl text-ink">{business.name}</h1>
         </header>
 
         <MenuOrderForm slug={slug} menuItems={menuItems} />
