@@ -11,7 +11,8 @@ export function middleware(request: NextRequest) {
   const isProtectedApi =
     pathname.startsWith('/api/menu-items') ||
     pathname.startsWith('/api/orders/') ||
-    pathname.startsWith('/api/reports')
+    pathname.startsWith('/api/reports') ||
+    pathname.startsWith('/api/ingredients')
 
   if (isProtectedPage && !isAuthenticated) {
     const loginUrl = new URL('/owner-login', request.url)

@@ -8,34 +8,55 @@ datasource db {
 }
 
 model Business {
-  id        String   @id @default(cuid())
-  name      String
-  slug      String   @unique
-  createdAt DateTime @default(now())
-  menuItems MenuItem[]
-  orders    Order[]
+  id          String       @id @default(cuid())
+  name        String
+  slug        String       @unique
+  createdAt   DateTime     @default(now())
+  menuItems   MenuItem[]
+  orders      Order[]
+  ingredients Ingredient[]
 }
 
 model MenuItem {
-  id           String   @id @default(cuid())
+  id          String       @id @default(cuid())
+  businessId  String
+  business    Business     @relation(fields: [businessId], references: [id])
+  name        String
+  description String?
+  price       Decimal
+  cost        Decimal?
+  available   Boolean      @default(true)
+  orderItems  OrderItem[]
+  recipeItems RecipeItem[]
+}
+
+model Ingredient {
+  id           String       @id @default(cuid())
   businessId   String
-  business     Business @relation(fields: [businessId], references: [id])
+  business     Business     @relation(fields: [businessId], references: [id])
   name         String
-  description  String?
-  price        Decimal
+  unit         String       @default("units")
+  stock        Float        @default(0)
+  reorderLevel Float        @default(5)
   cost         Decimal?
-  stock        Int      @default(0)
-  reorderLevel Int      @default(5)
-  available    Boolean  @default(true)
-  orderItems   OrderItem[]
+  recipeItems  RecipeItem[]
+}
+
+model RecipeItem {
+  id           String     @id @default(cuid())
+  menuItemId   String
+  menuItem     MenuItem   @relation(fields: [menuItemId], references: [id])
+  ingredientId String
+  ingredient   Ingredient @relation(fields: [ingredientId], references: [id])
+  quantity     Float
 }
 
 model Order {
-  id         String   @id @default(cuid())
+  id         String      @id @default(cuid())
   businessId String
-  business   Business @relation(fields: [businessId], references: [id])
-  status     String   @default("pending")
-  createdAt  DateTime @default(now())
+  business   Business    @relation(fields: [businessId], references: [id])
+  status     String      @default("pending")
+  createdAt  DateTime    @default(now())
   items      OrderItem[]
 }
 

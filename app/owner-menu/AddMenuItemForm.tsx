@@ -8,7 +8,6 @@ export default function AddMenuItemForm({ slug }: { slug: string }) {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [price, setPrice] = useState('')
-  const [stock, setStock] = useState('')
   const [status, setStatus] = useState<'idle' | 'submitting' | 'error'>('idle')
   const [message, setMessage] = useState('')
 
@@ -24,7 +23,6 @@ export default function AddMenuItemForm({ slug }: { slug: string }) {
         name,
         description,
         price: parseFloat(price),
-        stock: parseInt(stock, 10) || 0,
       }),
     })
 
@@ -34,7 +32,6 @@ export default function AddMenuItemForm({ slug }: { slug: string }) {
       setName('')
       setDescription('')
       setPrice('')
-      setStock('')
       setStatus('idle')
       router.refresh()
     } else {
@@ -63,24 +60,15 @@ export default function AddMenuItemForm({ slug }: { slug: string }) {
         onChange={(e) => setDescription(e.target.value)}
         className={inputClass}
       />
-      <div className="flex flex-wrap gap-3">
-        <input
-          type="number"
-          step="0.01"
-          placeholder="Price"
-          value={price}
-          onChange={(e) => setPrice(e.target.value)}
-          className={`${inputClass} min-w-[120px] flex-1`}
-          required
-        />
-        <input
-          type="number"
-          placeholder="Stock"
-          value={stock}
-          onChange={(e) => setStock(e.target.value)}
-          className={`${inputClass} min-w-[120px] flex-1`}
-        />
-      </div>
+      <input
+        type="number"
+        step="0.01"
+        placeholder="Price"
+        value={price}
+        onChange={(e) => setPrice(e.target.value)}
+        className={inputClass}
+        required
+      />
       <button
         type="submit"
         disabled={status === 'submitting'}

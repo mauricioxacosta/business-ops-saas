@@ -62,11 +62,13 @@ export default async function DashboardPage() {
 
   const business = await prisma.business.findUnique({ where: { slug: 'flame-fusion' } })
 
-  const allItems = business
-    ? await prisma.menuItem.findMany({ where: { businessId: business.id } })
+  const allIngredients = business
+    ? await prisma.ingredient.findMany({ where: { businessId: business.id } })
     : []
 
-  const lowStockItems = allItems.filter((item) => item.stock <= item.reorderLevel)
+  const lowStockIngredients = allIngredients.filter(
+    (ingredient) => ingredient.stock <= ingredient.reorderLevel
+  )
 
   const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'
   const menuUrl = `${siteUrl}/menu/flame-fusion`
@@ -99,14 +101,16 @@ export default async function DashboardPage() {
       <div className="mt-6 grid gap-6 lg:grid-cols-2">
         <div className="rounded-2xl border-2 border-admin-alert/20 bg-admin-alert/5 p-6">
           <h2 className="font-semibold text-admin-alert">Low stock alerts</h2>
-          {lowStockItems.length === 0 ? (
-            <p className="mt-3 text-sm text-admin-ink/50">All items are well stocked.</p>
+          {lowStockIngredients.length === 0 ? (
+            <p className="mt-3 text-sm text-admin-ink/50">All ingredients are well stocked.</p>
           ) : (
             <ul className="mt-3 space-y-2">
-              {lowStockItems.map((item) => (
-                <li key={item.id} className="flex items-center justify-between text-sm text-admin-ink">
-                  <span>{item.name}</span>
-                  <span className="font-medium text-admin-alert">{item.stock} left</span>
+              {lowStockIngredients.map((ingredient) => (
+                <li key={ingredient.id} className="flex items-center justify-between text-sm text-admin-ink">
+                  <span>{ingredient.name}</span>
+                  <span className="font-medium text-admin-alert">
+                    {ingredient.stock} {ingredient.unit} left
+                  </span>
                 </li>
               ))}
             </ul>

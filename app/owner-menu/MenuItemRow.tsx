@@ -8,7 +8,6 @@ type MenuItem = {
   name: string
   description: string | null
   price: string
-  stock: number
   available: boolean
 }
 
@@ -17,7 +16,6 @@ export default function MenuItemRow({ item }: { item: MenuItem }) {
   const [editing, setEditing] = useState(false)
   const [name, setName] = useState(item.name)
   const [price, setPrice] = useState(item.price)
-  const [stock, setStock] = useState(String(item.stock))
   const [available, setAvailable] = useState(item.available)
   const [message, setMessage] = useState('')
 
@@ -28,7 +26,6 @@ export default function MenuItemRow({ item }: { item: MenuItem }) {
       body: JSON.stringify({
         name,
         price: parseFloat(price),
-        stock: parseInt(stock, 10),
         available,
       }),
     })
@@ -73,12 +70,6 @@ export default function MenuItemRow({ item }: { item: MenuItem }) {
             onChange={(e) => setPrice(e.target.value)}
             className={inputClass}
           />
-          <input
-            type="number"
-            value={stock}
-            onChange={(e) => setStock(e.target.value)}
-            className={inputClass}
-          />
           <label className="flex items-center gap-2 text-sm text-admin-ink/70">
             <input
               type="checkbox"
@@ -108,13 +99,12 @@ export default function MenuItemRow({ item }: { item: MenuItem }) {
   }
 
   return (
-        <li className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+    <li className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
       <div>
         <p className="text-sm text-admin-ink">
           {item.name}{' '}
           <span className="text-admin-ink/60">£{Number(item.price).toFixed(2)}</span>
         </p>
-        <p className="mt-0.5 text-xs text-admin-ink/40">Stock: {item.stock}</p>
         {!item.available && (
           <p className="mt-0.5 text-xs text-admin-alert">Unavailable</p>
         )}

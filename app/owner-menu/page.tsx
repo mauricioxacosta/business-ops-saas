@@ -30,7 +30,6 @@ export default async function OwnerMenuPage() {
               name: item.name,
               description: item.description,
               price: item.price.toString(),
-              stock: item.stock,
               available: item.available,
             }}
           />
