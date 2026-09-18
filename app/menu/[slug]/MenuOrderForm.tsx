@@ -7,7 +7,6 @@ type MenuItem = {
   name: string
   description: string | null
   price: number
-  stock: number
   available: boolean
 }
 
@@ -79,7 +78,6 @@ export default function MenuOrderForm({
               <input
                 type="number"
                 min={0}
-                max={item.stock}
                 disabled={!item.available}
                 value={quantities[item.id] || 0}
                 onChange={(e) => updateQuantity(item.id, Number(e.target.value))}

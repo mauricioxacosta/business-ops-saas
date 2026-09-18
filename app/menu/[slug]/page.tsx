@@ -23,7 +23,6 @@ export default async function MenuPage({
     name: item.name,
     description: item.description,
     price: item.price.toNumber(),
-    stock: item.stock,
     available: item.available,
   }))
 

@@ -56,10 +56,6 @@ export async function POST(request: Request) {
           throw new Error('Invalid menu item')
         }
 
-        if (menuItem.stock < item.quantity) {
-          throw new Error(`Not enough stock for ${menuItem.name}`)
-        }
-
         await tx.orderItem.create({
           data: {
             orderId: newOrder.id,
@@ -67,11 +63,6 @@ export async function POST(request: Request) {
             quantity: item.quantity,
             priceEach: menuItem.price,
           },
-        })
-
-        await tx.menuItem.update({
-          where: { id: menuItem.id },
-          data: { stock: { decrement: item.quantity } },
         })
       }
 
