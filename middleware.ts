@@ -12,7 +12,8 @@ export function middleware(request: NextRequest) {
     pathname.startsWith('/api/menu-items') ||
     pathname.startsWith('/api/orders/') ||
     pathname.startsWith('/api/reports') ||
-    pathname.startsWith('/api/ingredients')
+    pathname.startsWith('/api/ingredients') ||
+    pathname.startsWith('/api/recipe-items')
 
   if (isProtectedPage && !isAuthenticated) {
     const loginUrl = new URL('/owner-login', request.url)
@@ -36,5 +37,7 @@ export const config = {
     '/api/menu-items/:path*',
     '/api/orders/:path*',
     '/api/reports/:path*',
+    '/api/ingredients/:path*',
+    '/api/recipe-items/:path*',
   ],
 }
