@@ -10,8 +10,9 @@ export default function AddIngredientForm({ slug }: { slug: string }) {
   const [unit, setUnit] = useState('units')
   const [stock, setStock] = useState('')
   const [reorderLevel, setReorderLevel] = useState('')
-  const [status, setStatus] = useState<
-    'idle' | 'submitting' | 'error'
+  const [cost, setCost] = useState('')
+  const [status, setStatus] = useState
+  < 'idle' | 'submitting' | 'error'
   >('idle')
   const [message, setMessage] = useState('')
 
@@ -31,6 +32,7 @@ export default function AddIngredientForm({ slug }: { slug: string }) {
         unit,
         stock: parseFloat(stock) || 0,
         reorderLevel: parseFloat(reorderLevel) || 5,
+        cost: cost ? parseFloat(cost) : undefined,
       }),
     })
 
@@ -41,6 +43,7 @@ export default function AddIngredientForm({ slug }: { slug: string }) {
       setUnit('units')
       setStock('')
       setReorderLevel('')
+      setCost('')
       setStatus('idle')
 
       router.refresh()
@@ -91,6 +94,15 @@ export default function AddIngredientForm({ slug }: { slug: string }) {
           className={`${inputClass} min-w-[120px] flex-1`}
         />
       </div>
+
+      <input
+        type="number"
+        step="any"
+        placeholder="Cost per unit (£, optional — improves ABC/EOQ accuracy)"
+        value={cost}
+        onChange={(e) => setCost(e.target.value)}
+        className={inputClass}
+      />
 
       <button
         type="submit"
