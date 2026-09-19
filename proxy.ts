@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 const PROTECTED_PAGES = ['/orders', '/dashboard', '/owner-menu', '/inventory', '/reports']
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const session = request.cookies.get('owner_session')?.value
   const isAuthenticated = session === process.env.OWNER_PASSWORD
